@@ -1,0 +1,21 @@
+<mat-toolbar color="primary">
+  <span>Intelligent Reporting (IR)</span>
+  <span class="fill-remaining-space">
+    <button type="button" mat-button (click)="onProcessDocuments()">
+      Trigger migration
+    </button>
+  </span>
+  <ng-container *ngIf="user">
+    <span class="profile">{{user.username}}</span>
+    <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon"
+              [matMenuTriggerFor]="menu">
+      account_circle
+    </mat-icon>
+  </ng-container>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>
