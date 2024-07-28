@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {AuthService} from "../../../services/auth/auth.service";
 import {UserModel} from "../../../models/user-model";
 import {DocumentService} from "../../../services/document/document.service";
@@ -11,6 +11,7 @@ import {NotificationService} from "../../../services/notification/notification.s
 })
 export class HeaderComponent {
   @Input() user?: UserModel;
+  @Output() processDocumentEvent = new EventEmitter();
 
   constructor(
     private authService: AuthService,
@@ -22,7 +23,10 @@ export class HeaderComponent {
   onProcessDocuments() {
     this.documentService
       .process()
-      .subscribe(_ => this.notificationService.info('Processed successfully!'));
+      .subscribe(_ => {
+        this.notificationService.info('Processed successfully!');
+        this.processDocumentEvent.emit();
+      });
   }
 
   onLogout() {

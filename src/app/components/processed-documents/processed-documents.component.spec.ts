@@ -48,4 +48,22 @@ describe('ProcessedDocumentsComponent', () => {
       expect(documentService.getProcessed).toHaveBeenCalledWith(0, 10);
     });
   });
+
+  describe('when getLatestProcessedDocuments is called', () => {
+    beforeEach(() => {
+      spyOn(documentService, 'getProcessed').and.returnValue(of({}));
+      component.page = {
+        ...component.page,
+        pageable: {
+          pageNumber: 0,
+          pageSize: 20,
+        }
+      };
+      component.getLatestProcessedDocuments();
+    });
+
+    it('should have called documentService.getProcessed', () => {
+      expect(documentService.getProcessed).toHaveBeenCalledWith(0, 20);
+    });
+  });
 });
