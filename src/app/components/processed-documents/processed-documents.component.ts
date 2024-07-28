@@ -23,6 +23,11 @@ export class ProcessedDocumentsComponent implements OnInit {
     this.getProcessed();
   }
 
+  getLatestProcessedDocuments() {
+    this.setPage(0, this.page?.pageable?.pageSize!);
+    this.getProcessed();
+  }
+
   onPageChange(page: PageEvent) {
     this.setPage(page.pageIndex, page.pageSize);
     this.getProcessed();

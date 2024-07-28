@@ -1,2 +1,5 @@
-<app-header [user]="user"></app-header>
-<app-processed-documents></app-processed-documents>
+<app-header
+  [user]="user"
+  (processDocumentEvent)="onGetLatestProcessedDocuments()"
+></app-header>
+<app-processed-documents #processDocuments></app-processed-documents>
