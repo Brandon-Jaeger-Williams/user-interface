@@ -3,6 +3,7 @@ import {DocumentService} from "../../services/document/document.service";
 import {ResultPageModel} from "../../models/result-page-model";
 import {DocumentModel} from "../../models/document-model";
 import {PageEvent} from "@angular/material/paginator";
+import {NotificationService} from "../../services/notification/notification.service";
 
 @Component({
   selector: 'app-processed-documents',
@@ -11,10 +12,11 @@ import {PageEvent} from "@angular/material/paginator";
 })
 export class ProcessedDocumentsComponent implements OnInit {
   page?: ResultPageModel<DocumentModel>;
-  displayedColumns: string[] = ['fileName', 'fileType', 'createdAt'];
+  displayedColumns: string[] = ['fileName', 'fileType', 'createdAt', 'download'];
 
   constructor(
     private documentService: DocumentService,
+    private notificationService: NotificationService,
   ) {
     this.setPage(0, 5);
   }
@@ -31,6 +33,11 @@ export class ProcessedDocumentsComponent implements OnInit {
   onPageChange(page: PageEvent) {
     this.setPage(page.pageIndex, page.pageSize);
     this.getProcessed();
+  }
+
+  onDownload(data: DocumentModel) {
+    this.documentService.download(data)
+      .subscribe(_ => this.notificationService.info('Download successful'));
   }
 
   private getProcessed() {
