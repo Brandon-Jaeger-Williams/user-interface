@@ -25,7 +25,9 @@ export class HeaderComponent {
       .process()
       .subscribe(_ => {
         this.notificationService.info('Processed successfully!');
-        this.processDocumentEvent.emit();
+        setTimeout(() => {
+          this.processDocumentEvent.emit();
+        }, 500);
       });
   }
 

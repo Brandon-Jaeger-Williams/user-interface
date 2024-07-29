@@ -13,6 +13,9 @@ describe('ProcessedDocumentsComponent', () => {
   const mockDocumentService = {
     getProcessed: () => {
       return of({});
+    },
+    download: () => {
+      return of();
     }
   };
 
@@ -64,6 +67,25 @@ describe('ProcessedDocumentsComponent', () => {
 
     it('should have called documentService.getProcessed', () => {
       expect(documentService.getProcessed).toHaveBeenCalledWith(0, 20);
+    });
+  });
+
+  describe('when onDownload is called', () => {
+    beforeEach(() => {
+      spyOn(documentService, 'download').and.returnValue(of());
+      component.onDownload({
+        key: 'test',
+        fileType: 'csv',
+        fileName: 'test',
+      });
+    });
+
+    it('should have called documentService.download', () => {
+      expect(documentService.download).toHaveBeenCalledWith({
+        key: 'test',
+        fileType: 'csv',
+        fileName: 'test',
+      });
     });
   });
 });
